@@ -40,11 +40,19 @@ npm run dev
 To demo with real numbers, replace `data/seed.json` with an export matching
 `SeedDataset` in `lib/types.ts` — no code changes.
 
-## Roadmap
+## Handing off?
 
-1. ✅ Phase 1 — schema, providers, seed data, main dashboard (tiles,
-   WoW/MoM/QoQ quick-compares, customizable ads table, date ranges)
-2. Phase 2 — trends & cohorts (week/month/quarter bucketing, day-of-week
-   breakdown, charts)
-3. Phase 3 — asset registry UI + copy × creative pairing matrix
-4. Phase 4 — handoff package for the destination app
+Start with **`docs/handoff-guide.md`** — the swap-vs-keep map, integration
+checklist, and the invariants that must survive the port. Then
+`docs/meta-field-map.md` for the field-by-field Meta/Stripe mapping.
+
+## Status
+
+All four phases shipped:
+
+1. ✅ Schema, providers, seed data, main dashboard (tiles, WoW/MoM/QoQ
+   quick-compares, customizable ads table, date ranges)
+2. ✅ Trends & cohorts (week/month/quarter bucketing, day-of-week
+   breakdown, charts, cohort table)
+3. ✅ Asset registry + copy × creative pairing matrix + edit drawer
+4. ✅ Handoff package (`docs/handoff-guide.md`)
