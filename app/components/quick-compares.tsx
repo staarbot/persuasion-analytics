@@ -111,28 +111,26 @@ export default function QuickCompares({ dailyMetrics, sales, dataEnd }: Props) {
               >
                 {p.title}
               </h3>
-              {/* Column headers: older period, newer period, % change */}
-              <div className="grid grid-cols-[1fr_auto_auto_auto] gap-x-4 items-baseline border-b border-ink-800/12 pb-1.5 mb-2">
-                <span />
-                <span className="label-caps !text-[10px] text-right whitespace-nowrap">
+              {/* One grid for header + all rows so the value columns share
+                  track sizing — per-row grids would let short numbers drift */}
+              <div className="grid grid-cols-[1fr_auto_auto_auto] gap-x-4 gap-y-2.5 items-baseline">
+                <span className="border-b border-ink-800/12 pb-1.5" />
+                <span className="label-caps !text-[10px] text-right whitespace-nowrap border-b border-ink-800/12 pb-1.5">
                   {p.label(p.previous)}
                 </span>
-                <span className="label-caps !text-[10px] !text-ink-800 text-right whitespace-nowrap">
+                <span className="label-caps !text-[10px] !text-ink-800 text-right whitespace-nowrap border-b border-ink-800/12 pb-1.5">
                   {p.label(p.current)}
                 </span>
-                <span className="label-caps !text-[10px] text-right w-14">±%</span>
-              </div>
-              <div className="space-y-2.5">
+                <span className="label-caps !text-[10px] text-right border-b border-ink-800/12 pb-1.5">
+                  ±%
+                </span>
                 {COMPARE_METRICS.map((m) => {
                   const v = values[m.key];
                   const change = pctChange(v.c, v.p);
                   const good =
                     change === null ? null : m.higherIsBetter ? change >= 0 : change <= 0;
                   return (
-                    <div
-                      key={m.key}
-                      className="grid grid-cols-[1fr_auto_auto_auto] gap-x-4 items-baseline"
-                    >
+                    <div key={m.key} className="contents">
                       <span className="text-xs text-taupe-600">{m.label}</span>
                       <span className="font-num text-[13px] text-taupe-500 text-right whitespace-nowrap">
                         {formatMetric(v.p, m.fmt)}
@@ -141,7 +139,7 @@ export default function QuickCompares({ dailyMetrics, sales, dataEnd }: Props) {
                         {formatMetric(v.c, m.fmt)}
                       </span>
                       <span
-                        className={`font-num text-xs text-right w-14 ${
+                        className={`font-num text-xs text-right ${
                           change === null
                             ? "text-taupe-400"
                             : good
