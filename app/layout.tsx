@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { accountConfig } from "@/config/account";
+import Nav from "./components/nav";
 
 export const metadata: Metadata = {
   title: "Persuasion Analytics — Ads Dashboard",
@@ -25,7 +26,10 @@ export default function RootLayout({
               </span>
               <span className="label-caps">Ads Dashboard · Demo</span>
             </div>
-            <span className="label-caps">{accountConfig.accountName}</span>
+            <div className="flex items-center gap-6">
+              <Nav />
+              <span className="label-caps">{accountConfig.accountName}</span>
+            </div>
           </div>
         </header>
         {children}
