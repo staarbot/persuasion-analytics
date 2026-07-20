@@ -1,26 +1,79 @@
+@import url('https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&f[]=switzer@400,500,600,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Azeret+Mono:wght@400;500;600&display=swap');
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Core palette (shared design language with revshare-os) */
+  --ink-900: #1E1A17;
+  --ink-800: #2A2520;
+  --taupe-600: #6B5E4D;
+  --taupe-500: #8A7A63;
+  --taupe-400: #BFB3A1;
+  --cream-100: #FAF6EE;
+  --cream-200: #F5F0E8;
+  --cream-300: #EDE6D9;
+  --cream-350: #F1EADC;
+
+  /* Gold */
+  --gold-500: #C4922A;
+  --gold-400: #D9A845;
+  --gold-700: #8A6414;
+
+  /* Semantic */
+  --signal-blue: #4A78D8;
+  --signal-red: #C73C3B;
+  --signal-green: #2E7D4F;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-ink-900: var(--ink-900);
+  --color-ink-800: var(--ink-800);
+  --color-taupe-600: var(--taupe-600);
+  --color-taupe-500: var(--taupe-500);
+  --color-taupe-400: var(--taupe-400);
+  --color-cream-100: var(--cream-100);
+  --color-cream-200: var(--cream-200);
+  --color-cream-300: var(--cream-300);
+  --color-cream-350: var(--cream-350);
+  --color-gold-500: var(--gold-500);
+  --color-gold-400: var(--gold-400);
+  --color-gold-700: var(--gold-700);
+  --color-signal-blue: var(--signal-blue);
+  --color-signal-red: var(--signal-red);
+  --color-signal-green: var(--signal-green);
+  --font-display: 'Clash Display', Georgia, serif;
+  --font-body: 'Switzer', system-ui, sans-serif;
+  --font-mono: 'Azeret Mono', ui-monospace, monospace;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--cream-200);
+  color: var(--ink-800);
+  font-family: var(--font-body);
+}
+
+/* All figures in Azeret Mono with tabular digits */
+.font-num {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Small caps label style */
+.label-caps {
+  font-family: var(--font-body);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--taupe-600);
+}
+
+/* Asset code chip: "V4", "C3" */
+.code-chip {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  padding: 2px 6px;
+  border-radius: 3px;
 }
