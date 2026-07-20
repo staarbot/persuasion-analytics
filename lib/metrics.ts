@@ -10,8 +10,9 @@ export interface Totals {
   clicks: number;
   linkClicks: number;
   spend: number;
-  video3sViews: number;
-  thruplays: number;
+  /** null when nothing in the aggregate has video metrics (all statics) */
+  video3sViews: number | null;
+  thruplays: number | null;
   metaPurchases: number;
   metaPurchaseValue: number;
   feSales: number;
@@ -28,8 +29,8 @@ export const EMPTY_TOTALS: Totals = {
   clicks: 0,
   linkClicks: 0,
   spend: 0,
-  video3sViews: 0,
-  thruplays: 0,
+  video3sViews: null,
+  thruplays: null,
   metaPurchases: 0,
   metaPurchaseValue: 0,
   feSales: 0,
@@ -47,8 +48,8 @@ export function aggregate(rows: AdDailyMetrics[], sales: Sale[]): Totals {
     t.clicks += r.clicks;
     t.linkClicks += r.linkClicks;
     t.spend += r.spend;
-    t.video3sViews += r.video3sViews ?? 0;
-    t.thruplays += r.thruplays ?? 0;
+    if (r.video3sViews != null) t.video3sViews = (t.video3sViews ?? 0) + r.video3sViews;
+    if (r.thruplays != null) t.thruplays = (t.thruplays ?? 0) + r.thruplays;
     t.metaPurchases += r.metaPurchases;
     t.metaPurchaseValue += r.metaPurchaseValue;
   }
@@ -95,8 +96,12 @@ export const derived = {
   cpm: (t: Totals) => div(t.spend * 1000, t.impressions),
   /** Cost per FE acquisition */
   cpa: (t: Totals) => div(t.spend, t.feSales),
-  hookRate: (t: Totals) => div(t.video3sViews, t.impressions),
-  holdRate: (t: Totals) => div(t.thruplays, t.video3sViews),
+  hookRate: (t: Totals) =>
+    t.video3sViews == null ? null : div(t.video3sViews, t.impressions),
+  holdRate: (t: Totals) =>
+    t.thruplays == null || t.video3sViews == null
+      ? null
+      : div(t.thruplays, t.video3sViews),
   totalSalesCount: (t: Totals) => t.feSales + t.beSales,
   totalRevenue: (t: Totals) => t.feRevenue + t.beRevenue,
   feRoas: (t: Totals) => div(t.feRevenue, t.spend),
